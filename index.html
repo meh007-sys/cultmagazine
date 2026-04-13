@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مجلتي الجميلة - الصفحة الرئيسية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background-color: #fff9fb; color: #4a4a4a; }
+        
+        /* Animation Gare de Train Douce */
+        .split-flap { animation: flip 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes flip {
+            0% { transform: rotateX(0deg); opacity: 1; }
+            50% { transform: rotateX(90deg); opacity: 0.3; }
+            100% { transform: rotateX(0deg); opacity: 1; }
+        }
+
+        /* Marqueurs Catégories */
+        .category-item { position: relative; padding: 10px 22px; cursor: pointer; transition: 0.3s; font-weight: 700; }
+        .marker {
+            position: absolute; bottom: 8px; left: 0; right: 0; height: 0%;
+            z-index: -1; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            opacity: 0.35; border-radius: 6px;
+        }
+        .category-item:hover .marker, .active-cat .marker { height: 75%; }
+
+        /* Bloc 1 Effet Verre Flouté */
+        .glass-box {
+            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 32px rgba(255, 182, 193, 0.2);
+        }
+
+        /* Article Modal (Survol) */
+        .article-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(255, 192, 203, 0.3);
+            z-index: 100; backdrop-filter: blur(12px); justify-content: center; align-items: center; padding: 20px;
+        }
+        .active-modal { display: flex; animation: softAppear 0.4s ease-out; }
+        @keyframes softAppear { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        /* Scrollbar Rose */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #fff0f3; }
+        ::-webkit-scrollbar-thumb { background: #ffb1c1; border-radius: 20px; border: 3px solid #fff0f3; }
+    </style>
+</head>
+<body>
+
+    <section class="w-full bg-[#2d3436] text-white p-10 relative overflow-hidden h-72 flex items-center shadow-lg">
+        <div class="absolute left-0 top-0 w-1/2 h-full">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800" class="w-full h-full object-cover opacity-30">
+        </div>
+        <div class="relative z-10">
+            <div class="bg-pink-500 text-white text-[10px] font-bold px-3 py-1 rounded-full w-fit mb-4 tracking-widest">مباشر الآن</div>
+            <h1 id="flap-title" class="text-4xl md:text-6xl font-black split-flap leading-tight">حكايات من عالم الفن</h1>
+        </div>
+    </section>
+
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-pink-100 shadow-sm overflow-x-auto">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-start md:justify-center gap-2 whitespace-nowrap">
+            <div class="category-item active-cat text-pink-600">الكل <div class="marker bg-pink-300"></div></div>
+            <div class="category-item">سينما <div class="marker bg-blue-300"></div></div>
+            <div class="category-item">فنون <div class="marker bg-yellow-300"></div></div>
+            <div class="category-item">تصميم <div class="marker bg-purple-300"></div></div>
+            <div class="category-item">أدب <div class="marker bg-orange-300"></div></div>
+            <div class="category-item">سفر <div class="marker bg-green-300"></div></div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-6 mt-12 pb-20">
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+            
+            <div class="md:col-span-4 bg-white rounded-[60px] shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[480px] border border-pink-50 group">
+                <div class="md:w-2/3 relative h-[350px] md:h-auto">
+                    <img src="https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?auto=format&fit=crop&w=1200" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
+                    <div class="absolute inset-0 glass-box m-6 md:m-12 rounded-[45px] p-8 md:p-14 flex flex-col justify-center">
+                        <h2 class="text-3xl md:text-5xl font-black text-[#2d3436] mb-6 leading-tight">سحر الألوان في شوارع مدينتنا</h2>
+                        <p class="text-gray-600 text-lg mb-8 line-clamp-2 leading-relaxed">اكتشف كيف يحول الفنانون الشباب الجدران الصامتة إلى لوحات تنبض بالحياة والأمل...</p>
+                        <button onclick="openArticle()" class="bg-[#ff8fa3] text-white w-fit px-10 py-4 rounded-full font-bold shadow-lg hover:shadow-pink-200 transition-all hover:-translate-y-1">إقرأ المزيد ✨</button>
+                    </div>
+                </div>
+                <div class="md:w-1/3 p-12 flex flex-col justify-center bg-gradient-to-b from-[#fff0f3] to-white">
+                    <div class="flex items-center gap-4 bg-white p-5 rounded-[30px] shadow-sm border border-pink-100">
+                        <div class="w-4 h-4 bg-green-400 rounded-full animate-pulse"></div>
+                        <p class="font-bold text-gray-700 text-lg"><span id="live-users">2,450</span> يقرأون الآن</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-[45px] shadow-xl hover:-translate-y-3 transition-all duration-300 border border-pink-50">
+                <div class="h-48 bg-blue-50 rounded-[35px] mb-5 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=400" class="w-full h-full object-cover">
+                </div>
+                <h4 class="font-black text-xl px-2 leading-tight text-[#2d3436]">خلف كواليس السينما العالمية</h4>
+            </div>
+
+            <div class="bg-white p-6 rounded-[45px] shadow-xl hover:-translate-y-3 transition-all duration-300 border border-pink-50">
+                <div class="h-48 bg-yellow-50 rounded-[35px] mb-5 flex items-center justify-center text-5xl">🧁</div>
+                <h4 class="font-black text-xl px-2 leading-tight text-[#2d3436]">فن الحلويات: لمسات إبداعية</h4>
+            </div>
+
+            <div class="bg-white p-6 rounded-[45px] shadow-xl hover:-translate-y-3 transition-all duration-300 border border-pink-50">
+                <div class="h-48 bg-purple-50 rounded-[35px] mb-5 flex items-center justify-center text-5xl">🎨</div>
+                <h4 class="font-black text-xl px-2 leading-tight text-[#2d3436]">معرض الأسبوع: تجريد</h4>
+            </div>
+
+            <div class="bg-white p-6 rounded-[45px] shadow-xl hover:-translate-y-3 transition-all duration-300 border border-pink-50">
+                <div class="h-48 bg-green-50 rounded-[35px] mb-5 flex items-center justify-center text-5xl">🌿</div>
+                <h4 class="font-black text-xl px-2 leading-tight text-[#2d3436]">تصاميم مستوحاة من الطبيعة</h4>
+            </div>
+
+            <div class="md:col-span-4 bg-[#2d3436] text-white rounded-[60px] p-16 relative overflow-hidden group">
+                <div class="relative z-10 max-w-2xl">
+                    <h2 class="text-5xl md:text-7xl font-black mb-8 leading-tight">ملف خاص: الذكاء العاطفي</h2>
+                    <p class="text-gray-400 text-xl mb-10 leading-relaxed">كيف نفهم مشاعرنا في عالم رقمي متسارع؟ لقاءات مع خبراء علم النفس.</p>
+                    <button class="bg-pink-500 hover:bg-pink-400 text-white px-12 py-5 rounded-full font-bold transition-all text-lg shadow-xl">تصفح الملف الكامل</button>
+                </div>
+                <div class="absolute right-0 top-0 h-full w-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+            </div>
+
+        </div>
+
+        <footer class="mt-32 py-16 border-t border-pink-100 text-center">
+            <div class="text-3xl font-black text-pink-500 mb-6">مجلتي الجميلة ✨</div>
+            <div class="flex justify-center gap-8 text-gray-400 font-bold mb-8">
+                <a href="#">عن المجلة</a>
+                <a href="#">فريق العمل</a>
+                <a href="#">اتصل بنا</a>
+            </div>
+            <p class="text-pink-200 text-sm italic">صُنع بكل حب لعام 2026</p>
+        </footer>
+    </div>
+
+    <div id="articleModal" class="article-overlay" onclick="closeArticle()">
+        <div class="bg-white w-full max-w-5xl max-h-[94vh] rounded-[60px] overflow-hidden shadow-2xl flex flex-col relative" onclick="event.stopPropagation()">
+            <button onclick="closeArticle()" class="absolute top-8 left-8 z-20 bg-white/90 w-14 h-14 rounded-full font-bold shadow-xl text-2xl hover:bg-pink-500 hover:text-white transition-all transition-colors">✕</button>
+            
+            <div class="h-[45vh] bg-pink-100 relative shrink-0">
+                <img src="https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?auto=format&fit=crop&w=1200" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
+            </div>
+
+            <div class="p-12 md:p-20 overflow-y-auto">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-4xl md:text-6xl font-black text-[#2d3436] mb-10 leading-tight">سحر الألوان في شوارع مدينتنا</h2>
+                    <div class="text-2xl text-pink-400 mb-12 font-bold italic border-r-8 border-pink-200 pr-8 leading-relaxed">
+                        هذا النص يمثل الـ Lead الذي كتبه المحرر. صُمم ليكون جميلاً وجذاباً قبل الدخول في تفاصيل المقال.
+                    </div>
+                    <div class="text-gray-600 text-xl leading-[2.2] space-y-8">
+                        <p>هنا تكتمل القصة... المقال ينساب في هذا الفضاء الواسع والمريح للعين. يمكن للقارئ التمرير لأسفل لقراءة كل شيء دون مغادرة الصفحة الرئيسية.</p>
+                        <p>استمتع بتجربة قراءة "مجنونة" بجمالها وسهولتها!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animation Gare de train
+        const msgs = ["حكايات من عالم الفن", "إبداعات معمارية مذهلة", "رحلة في أعماق السينما"];
+        let mIdx = 0;
+        setInterval(() => {
+            const el = document.getElementById('flap-title');
+            el.classList.remove('split-flap');
+            void el.offsetWidth;
+            el.classList.add('split-flap');
+            mIdx = (mIdx + 1) % msgs.length;
+            el.innerText = msgs[mIdx];
+        }, 5000);
+
+        // Simulation lecteurs live
+        setInterval(() => {
+            const u = document.getElementById('live-users');
+            let val = parseInt(u.innerText.replace(',', ''));
+            val += Math.floor(Math.random() * 20) - 8;
+            u.innerText = val.toLocaleString();
+        }, 4000);
+
+        function openArticle() {
+            document.getElementById('articleModal').classList.add('active-modal');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeArticle() {
+            document.getElementById('articleModal').classList.remove('active-modal');
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>
